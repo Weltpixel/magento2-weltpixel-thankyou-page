@@ -1,0 +1,75 @@
+<?php
+    $_helper = $this->helper('WeltPixel\ThankYouPage\Helper\Data');
+    $_order = $block->getLastOrder();
+    $items = $_order->getAllVisibleItems();
+?>
+<div class="order-info" >
+    <?php if ($_helper->enablePrintOrder()) : ?>
+        <?php if ($block->getCanViewOrder() && $block->getCanPrintOrder()) :?>
+            <div>
+                <a class="action primary continue" href="<?= /* @noEscape */ $block->getPrintUrl() ?>"><span><?= /* @noEscape */ __('Print Order') ?></span></a>
+            </div>
+        <?php endif;?>
+    <?php endif;?>
+    <?php if ($_helper->showCustomerInfo()): ?>
+        <div class="customer-info">
+            <h4><?= /* @noEscape */ __('Customer Information') ?></h4>
+            <div class="address-wrapper">
+                <div class="shipping-address">
+                    <h4><?= /* @noEscape */ __('Shipping Address') ?></h4>
+                    <p>
+                        <?php if ($_order->getShippingAddress()): ?>
+                            <?= /* @noEscape */ $block->getFormattedAddress($_order->getShippingAddress()) ?>
+                        <?php else: ?><?= $block->escapeHtml(__('No shipping address')) ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <div class="billing-address">
+                    <h4><?= /* @noEscape */ __('Billing Address') ?></h4>
+                    <p><?= /* @noEscape */ $block->getFormattedAddress($_order->getBillingAddress()) ?></p>
+                </div>
+            </div>
+            <div class="methods-wrapper">
+                <div class="shipping-method">
+                    <h4><?= /* @noEscape */ __('Shipping Method') ?></h4>
+                    <p>
+                        <?php if ($block->getShippingMethodTitle($_order)): ?>
+                            <?= /* @noEscape */ $block->getShippingMethodTitle($_order) ?>
+                        <?php else: ?>
+                            <?= $block->escapeHtml(__('No shipping method')) ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <div class="payment-method">
+                    <h4><?= /* @noEscape */ __('Payment Method') ?></h4>
+                    <p><?= /* @noEscape */ $block->getPaymentMethodTitle($_order) ?></p>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($_helper->showProductInfo()): ?>
+        <div class="product-grid">
+            <div class="table-wrapper order-items">
+                <table class="data table table-order-items" id="table-order-items">
+                    <thead>
+                        <tr>
+                            <th class="col image textalign-left"><?= /* @noEscape */ __('Image') ?></th>
+                            <th class="col name textalign-left"><?= /* @noEscape */ __('Product Name') ?></th>
+                            <th class="col sku textalign-left"><?= /* @noEscape */ __('SKU') ?></th>
+                            <th class="col price textalign-right"><?= /* @noEscape */ __('Price') ?></th>
+                            <th class="col qty textalign-center"><?= /* @noEscape */ __('Qty') ?></th>
+                            <th class="col subtotal textalign-right"><?= /* @noEscape */ __('Subtotal') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?= $this->getChildHtml('order.items'); ?>
+                    </tbody>
+                    <tfoot>
+                        <?= $this->getChildHtml('order.totals'); ?>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
