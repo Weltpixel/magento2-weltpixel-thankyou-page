@@ -11,17 +11,17 @@
 ?>
 <?php if ($_helper->getGoogleApiKey() && $shippingAddress): ?>
     <div class="google-map-wrapper">
-        <div class="google-map" id="map" style="<?=  /* @noEscape */ $mapStyle ?>"></div>
+        <div class="google-map" id="map" style="<?= $block->escapeHtmlAttr($mapStyle) ?>"></div>
         <script>
             require([
-                "https://maps.googleapis.com/maps/api/js?key=<?= /* @noEscape */ $_helper->getGoogleApiKey() ?>"
+                "https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeJs($_helper->getGoogleApiKey()) ?>"
             ], function () {
-                var address = '<?= /* @noEscape */ $shippingAddress ?>',
+                var address = '<?= $block->escapeJs($shippingAddress) ?>',
                     geoCoder = new google.maps.Geocoder(),
                     map = new google.maps.Map(document.getElementById('map'),
                         {
-                            zoom: <?= /* @noEscape */ $mapZoom ?>,
-                            draggable: <?= /* @noEscape */ $mapDragging ?>,
+                            zoom: <?= (int) $mapZoom ?>,
+                            draggable: <?= (int) $mapDragging ?>,
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         }
                     );
@@ -39,10 +39,10 @@
                                 position: resultLocations[0].location,
                                 map: map,
                                 animation: google.maps.Animation.DROP,
-                                title: '<?= /* @noEscape */ $shippingAddress ?>'
+                                title: '<?= $block->escapeJs($shippingAddress) ?>'
                             });
 
-                            var contentString = '<div><p>Shipping Address</p><p><?= /* @noEscape */ $shippingAddress ?></p></div>',
+                            var contentString = '<div><p>Shipping Address</p><p><?= $block->escapeHtml($shippingAddress) ?></p></div>',
                                 infowindow = new google.maps.InfoWindow({
                                     content: contentString,
                                     maxWidth: 200

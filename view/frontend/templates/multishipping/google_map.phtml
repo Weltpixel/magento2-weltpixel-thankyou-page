@@ -11,23 +11,23 @@
 ?>
 <?php if ($_helper->getGoogleApiKey() && count($shippingAddresses)): ?>
     <div class="google-map-wrapper">
-        <div class="google-map" id="map" style="<?= /* @noEscape */ $mapStyle ?>"></div>
+        <div class="google-map" id="map" style="<?= $block->escapeHtmlAttr($mapStyle) ?>"></div>
         <script>
             require([
-                "https://maps.googleapis.com/maps/api/js?key=<?= /* @noEscape */ $_helper->getGoogleApiKey() ?>"
+                "https://maps.googleapis.com/maps/api/js?key=<?= $block->escapeJs($_helper->getGoogleApiKey()) ?>"
             ], function () {
                     var geoCoder = new google.maps.Geocoder(),
                         bounds = new google.maps.LatLngBounds(),
                     map = new google.maps.Map(document.getElementById('map'),
                         {
-                            zoom: <?= /* @noEscape */ $mapZoom ?>,
-                            draggable: <?= /* @noEscape */ $mapDragging ?>,
+                            zoom: <?= (int) $mapZoom ?>,
+                            draggable: <?= (int) $mapDragging ?>,
                             mapTypeId: google.maps.MapTypeId.ROADMAP
                         }
                     );
 
                 <?php foreach ($shippingAddresses as $shippingAddress)  : ?>
-                var address = '<?= /* @noEscape */ $shippingAddress ?>';
+                var address = '<?= $block->escapeJs($shippingAddress) ?>';
 
                 geoCoder.geocode({address: address}, function(results, status){
                     var resultLocations = [];
@@ -42,11 +42,11 @@
                                 position: resultLocations[0].location,
                                 map: map,
                                 animation: google.maps.Animation.DROP,
-                                title: '<?= /* @noEscape */ $shippingAddress ?>'
+                                title: '<?= $block->escapeJs($shippingAddress) ?>'
                             });
                             bounds.extend( resultLocations[0].location);
 
-                            var contentString = '<div><p>Shipping Address</p><p><?= /* @noEscape */ $shippingAddress ?></p></div>',
+                            var contentString = '<div><p>Shipping Address</p><p><?= $block->escapeHtml($shippingAddress) ?></p></div>',
                                 infowindow = new google.maps.InfoWindow({
                                     content: contentString,
                                     maxWidth: 200

@@ -2,7 +2,9 @@
 // @codingStandardsIgnoreFile
 /** @var $_helper WeltPixel\ThankYouPage\Helper\Data */
 $_helper = $this->helper('WeltPixel\ThankYouPage\Helper\Data');
-$pageSubtitle = $_helper->getPageSubTitle();
+// The subtitle is used as the __() format string below and emitted raw with the escaped order
+// link as its %1 argument, so it is escaped here (keeping a small tag allowlist) at the source.
+$pageSubtitle = $block->escapeHtml($_helper->getPageSubTitle(), ['a', 'b', 'strong', 'em', 'i', 'u', 'br', 'span', 'p']);
 $_order = $block->getLastOrder();
 ?>
 <?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
@@ -17,7 +19,7 @@ $_order = $block->getLastOrder();
         <?php  else :?>
             <p><?= /* @noEscape */ __($pageSubtitle, sprintf('<strong>%s</strong>', $block->escapeHtml($block->getOrderId()))) ?></p>
         <?php endif;?>
-            <p><?= /* @noEscape */  $_helper->getOrderDescription() ?></p>
+            <p><?= $block->escapeHtml($_helper->getOrderDescription(), ['a', 'b', 'strong', 'em', 'i', 'u', 'br', 'span', 'p']) ?></p>
     <?php endif;?>
 
     <?= $block->getAdditionalInfoHtml() ?>

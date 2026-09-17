@@ -23,7 +23,7 @@
     <tr id="order-item-row-<?= /* @noEscape */ $_item->getId() ?>" class="order-item-row">
         <td class="col image textalign-left">
             <?php if ($customProductUrl || $product->isVisibleInSiteVisibility()):?>
-                <a href="<?= /* @noEscape */ $productUrl ?>"
+                <a href="<?= $block->escapeUrl($productUrl) ?>"
                    title="<?= $block->escapeHtml($_item->getName()) ?>"
                    tabindex="-1"
                    class="product-item-photo"
@@ -41,7 +41,7 @@
         </td>
         <td class="col name textalign-left">
             <?php if ($customProductUrl || $product->isVisibleInSiteVisibility()):?>
-                <a href="<?= /* @noEscape */ $productUrl ?>"
+                <a href="<?= $block->escapeUrl($productUrl) ?>"
                    title="<?= $block->escapeHtml($_item->getName()) ?>"
                    tabindex="-1"
                    class="product-item-photo"

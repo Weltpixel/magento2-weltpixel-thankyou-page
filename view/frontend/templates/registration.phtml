@@ -15,12 +15,12 @@ $_helper = $this->helper('WeltPixel\ThankYouPage\Helper\Data');
                         "registration": {
                             "component": "Magento_Checkout/js/view/registration",
                             "config": {
-                                "registrationUrl": "<?= /* @noEscape */ $block->getCreateAccountUrl() ?>",
-                                "email": "<?= /* @noEscape */ $block->getEmailAddress() ?>",
+                                "registrationUrl": "<?= $block->escapeJs($block->escapeUrl($block->getCreateAccountUrl())) ?>",
+                                "email": "<?= $block->escapeJs($block->getEmailAddress()) ?>",
                                 "template": "<?= /* @noEscape */ $_helper->getRegistrationTemplate() ?>",
-                                "description": <?= /* @noEscape */ json_encode(nl2br($_helper->getCreateAccountDescription())) ?>,
-                                "emailLabel": <?= /* @noEscape */ json_encode($_helper->getCreateAccountEmailLabel())  ?>,
-                                "afterCreationLabel": <?= /* @noEscape */ json_encode(nl2br($_helper->getCreateAccountAfterCreationLabel())) ?>
+                                "description": <?= /* @noEscape */ json_encode(nl2br($block->escapeHtml($_helper->getCreateAccountDescription(), ['a', 'b', 'strong', 'em', 'i', 'u', 'br', 'span', 'p']))) ?>,
+                                "emailLabel": <?= /* @noEscape */ json_encode($block->escapeHtml($_helper->getCreateAccountEmailLabel())) ?>,
+                                "afterCreationLabel": <?= /* @noEscape */ json_encode(nl2br($block->escapeHtml($_helper->getCreateAccountAfterCreationLabel(), ['a', 'b', 'strong', 'em', 'i', 'u', 'br', 'span', 'p']))) ?>
                             },
                             "children": {
                                 "errors": {

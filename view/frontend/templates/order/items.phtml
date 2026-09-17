@@ -41,7 +41,7 @@
         </td>
         <td class="col name textalign-left">
             <?php if ($customProductUrl || $product->isVisibleInSiteVisibility()):?>
-                <a href="<?= /* @noEscape */ $productUrl ?>"
+                <a href="<?= $block->escapeUrl($productUrl) ?>"
                    title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
                    tabindex="-1"
                    class="product-item-photo"

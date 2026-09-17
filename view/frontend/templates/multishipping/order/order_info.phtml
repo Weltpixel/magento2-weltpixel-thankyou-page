@@ -9,7 +9,7 @@
     <?php if ($_helper->enablePrintOrder()) : ?>
         <?php if ($block->getCanViewOrder() && $block->getCanPrintOrder()) :?>
             <div>
-                <a class="action primary continue" href="<?= /* @noEscape */ $block->getPrintUrl() ?>"><span><?= /* @noEscape */ __('Print Order') ?></span></a>
+                <a class="action primary continue" href="<?= $block->escapeUrl($block->getPrintUrl()) ?>"><span><?= /* @noEscape */ __('Print Order') ?></span></a>
             </div>
         <?php endif;?>
     <?php endif;?>
@@ -36,7 +36,7 @@
                     <h4><?= /* @noEscape */ __('Shipping Method') ?></h4>
                     <p>
                         <?php if ($block->getShippingMethodTitle($_order)): ?>
-                            <?= /* @noEscape */ $block->getShippingMethodTitle($_order) ?>
+                            <?= $block->escapeHtml($block->getShippingMethodTitle($_order)) ?>
                         <?php else: ?>
                             <?= $block->escapeHtml(__('No shipping method')) ?>
                         <?php endif; ?>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="payment-method">
                     <h4><?= /* @noEscape */ __('Payment Method') ?></h4>
-                    <p><?= /* @noEscape */ $block->getPaymentMethodTitle($_order) ?></p>
+                    <p><?= $block->escapeHtml($block->getPaymentMethodTitle($_order)) ?></p>
                 </div>
             </div>
         </div>

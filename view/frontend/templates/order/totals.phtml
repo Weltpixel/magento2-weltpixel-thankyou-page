@@ -29,7 +29,7 @@
 
 <?php if ($_order->getDiscountAmount() != 0): ?>
     <tr class="discount">
-        <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Discount (%1)', $_order->getDiscountDescription()) ?></th>
+        <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Discount (%1)', $block->escapeHtml($_order->getDiscountDescription())) ?></th>
         <td class="amount textalign-right" data-th="Discount">
             <span class="price"><?=  /* @noEscape */ $_order->formatPrice($_order->getDiscountAmount()) ?></span>
         </td>
@@ -40,9 +40,9 @@
     <tr class="shipping">
         <?php $shippingDescription =  $_order->getShippingDescription(); ?>
         <?php if ($totalDisplaySettings['shipping'] == 3): ?>
-            <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Shipping Excl. Tax (%1)', $shippingDescription) ?></th>
+            <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Shipping Excl. Tax (%1)', $block->escapeHtml($shippingDescription)) ?></th>
         <?php else: ?>
-            <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Shipping (%1)', $shippingDescription) ?></th>
+            <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Shipping (%1)', $block->escapeHtml($shippingDescription)) ?></th>
         <?php endif; ?>
         <td class="amount textalign-right">
             <?php if ($totalDisplaySettings['shipping'] == 2): ?>
@@ -55,8 +55,8 @@
 
     <?php if ($totalDisplaySettings['shipping'] == 3): ?>
         <tr class="shipping">
-            <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Shipping Incl. Tax (%1)', $shippingDescription) ?></th>
-            <td class="amount textalign-right" data-th="<?php  /* @noEscape */ echo __('Shipping Incl. Tax (%1)', $shippingDescription) ?>">
+            <th colspan="5" class="mark textalign-right" scope="row"><?=  /* @noEscape */ __('Shipping Incl. Tax (%1)', $block->escapeHtml($shippingDescription)) ?></th>
+            <td class="amount textalign-right" data-th="<?php  /* @noEscape */ echo __('Shipping Incl. Tax (%1)', $block->escapeHtml($shippingDescription)) ?>">
                 <span class="price"><?=  /* @noEscape */ $_order->formatPrice($_order->getShippingInclTax()) ?>
             </td>
         </tr>
